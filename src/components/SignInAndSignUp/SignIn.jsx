@@ -7,7 +7,7 @@ function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
   const { signInUser } = useContext(AuthContext);
   const navigate = useNavigate();
-  
+
   const handleSignIn = (event) => {
     event.preventDefault();
     const email = event.target.email.value.trim();
@@ -24,7 +24,10 @@ function SignIn() {
         navigate("/profile");
       })
       .catch((err) => {
-        if (err.code === "auth/wrong-password" || err.code === "auth/user-not-found") {
+        if (
+          err.code === "auth/wrong-password" ||
+          err.code === "auth/user-not-found"
+        ) {
           alert("Invalid email or password!");
         } else {
           alert("Something went wrong. Please try again!");
@@ -36,22 +39,11 @@ function SignIn() {
   return (
     <div>
       <div className="hero-content my-10 flex-col mx-auto">
-        <div className="text-center lg:text-left">
-          <h1 className="text-transparent bg-clip-text text-3xl font-bold bg-gradient-to-r">
-            Sign In Now!
-          </h1>
-        </div>
-        <div
-          className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl"
-          data-aos="zoom-in"
-        >
-          <div>
-            <button className="btn text-lg font-semibold w-full text-center">
-              <FcGoogle /> Sign In With Google
-            </button>
-          </div>
+        <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
           <form onSubmit={handleSignIn} className="card-body">
-            <h1 className="text-2xl font-bold text-gray-600 text-center">Or</h1>
+            <h1 className="text-2xl font-bold text-gray-600 text-center">
+              Sign In Now!
+            </h1>
             {/* Email Field */}
             <div className="form-control">
               <label className="label">
@@ -92,6 +84,12 @@ function SignIn() {
               </button>
             </div>
           </form>
+          {/* Sign Up With Google*/}
+          <div className=" w-10/12 mx-auto mb-5">
+            <button className="btn text-lg w-full font-semibold text-center">
+              <FcGoogle /> Sign In With Google
+            </button>
+          </div>
           {/* Redirect to Sign Up */}
           <p className="text-center mb-5">
             Don't have an account?{" "}
