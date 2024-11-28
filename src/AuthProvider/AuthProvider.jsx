@@ -1,7 +1,8 @@
-import React, { createContext } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { auth } from "./../firebase/firebase.init";
 import {
   createUserWithEmailAndPassword,
+  onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
@@ -9,6 +10,7 @@ import {
 export const AuthContext = createContext();
 
 function AuthProvider({ children }) {
+    const [user, setUser] = useState(null)
   // SIGNUP: create user  Function
   const createUser = async (email, password) => {
     try {
@@ -31,11 +33,27 @@ function AuthProvider({ children }) {
     } finally {
     }
   };
+  // get the current user
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
+        // console.log(currentUser);
+      } else {
+        setUser(null);
+        // console.log("Current user not found!");
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
   const authInfo = {
     name: "jubayer",
+    user,
     createUser,
     signInUser,
     signOutUser,
+   
   };
 
   return (

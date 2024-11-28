@@ -143,9 +143,8 @@ function SignUp() {
               <button
                 type="submit"
                 className="btn bg-slate-100"
-                disabled={isLoading}
               >
-                {isLoading ? "Signing Up..." : "Sign Up"}
+                Sign Up
               </button>
             </div>
           </form>

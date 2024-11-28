@@ -3,7 +3,7 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { useContext } from "react";
 
 function Navber() {
-  const {signOutUser} = useContext(AuthContext)
+  const {signOutUser, user,} = useContext(AuthContext)
   const navigate = useNavigate()
   const link = (
     <>
@@ -63,7 +63,11 @@ function Navber() {
         </ul>
       </div>
       <div className="navbar-end">
-        <a onClick={hundleSignOut} className="btn">SingUp</a>
+       
+        {
+          user?<a onClick={hundleSignOut} className="btn">SingOut</a>
+          :<Link to={'/'} className="btn">SingUp</Link>
+        }
       </div>
     </div>
   );
