@@ -14,24 +14,24 @@ function Navber() {
       <li>
         {user && (
           <Link
-            to="/home"
-            className={`${
-              isActive("/home") ? "text-blue-400 font-bold" : "text-gray-400"
-            } hover:text-blue-300`}
-          >
-            Home
-          </Link>
-        )}
-      </li>
-      <li>
-        {user && (
-          <Link
             to="/profile"
             className={`${
               isActive("/profile") ? "text-blue-400 font-bold" : "text-gray-400"
             } hover:text-blue-300`}
           >
             Profile
+          </Link>
+        )}
+      </li>
+      <li>
+        {user && (
+          <Link
+            to="/userHome"
+            className={`${
+              isActive("/home") ? "text-blue-400 font-bold" : "text-gray-400"
+            } hover:text-blue-300`}
+          >
+            Home
           </Link>
         )}
       </li>
@@ -73,10 +73,14 @@ function Navber() {
   };
 
   return (
-    <div className="navbar px-10 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 text-white shadow-lg">
+    <div className="py-4 navbar px-10 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 text-white shadow-lg">
       <div className="navbar-start">
         <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden text-white">
+          <div
+            tabIndex={0}
+            role="button"
+            className="btn btn-ghost lg:hidden text-white"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -99,7 +103,9 @@ function Navber() {
             {link}
           </ul>
         </div>
-        <a className="btn btn-ghost normal-case text-2xl text-blue-500 font-bold">Postify</a>
+        <a className="btn btn-ghost normal-case text-2xl text-blue-500 font-bold">
+          Postify
+        </a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1 text-lg">{link}</ul>

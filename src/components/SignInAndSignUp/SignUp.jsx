@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 
 function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
-  const { createUser } = useContext(AuthContext);
+  const { createUser, hundleGoogleAuth } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -56,7 +56,16 @@ function SignUp() {
         console.error("ERROR:", err.message);
       });
   };
-
+  const hundleGoogleSingUp =()=>{
+    hundleGoogleAuth()
+    .then(res=>{
+      console.log(res.user);
+      navigate(`/profile`)
+    })
+    .catch(error=>{
+      console.log(error);
+    })
+  }
   return (
     <div>
       <div className="hero-content my-10 flex-col mx-auto">
@@ -132,8 +141,8 @@ function SignUp() {
           </form>
           {/* Sign Up With Google*/}
           <div className=" w-10/12 mx-auto mb-5">
-            <button className="btn text-lg w-full font-semibold text-center">
-              <FcGoogle /> Sign In With Google
+            <button onClick={hundleGoogleSingUp} className="btn text-lg w-full font-semibold text-center">
+              <FcGoogle /> Sign Up With Google
             </button>
           </div>
           {/* Redirect to Login */}

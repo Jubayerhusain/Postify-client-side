@@ -5,7 +5,7 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
-  const { signInUser } = useContext(AuthContext);
+  const { signInUser, hundleGoogleAuth } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSignIn = (event) => {
@@ -35,6 +35,16 @@ function SignIn() {
         console.error("ERROR:", err.message);
       });
   };
+  const hundleGoogleSingIn =()=>{
+    hundleGoogleAuth()
+    .then(res=>{
+      console.log(res.user);
+      navigate(`/profile`)
+    })
+    .catch(error=>{
+      console.log(error);
+    })
+  }
 
   return (
     <div>
@@ -86,7 +96,7 @@ function SignIn() {
           </form>
           {/* Sign Up With Google*/}
           <div className=" w-10/12 mx-auto mb-5">
-            <button className="btn text-lg w-full font-semibold text-center">
+            <button onClick={hundleGoogleSingIn} className="btn text-lg w-full font-semibold text-center">
               <FcGoogle /> Sign In With Google
             </button>
           </div>
