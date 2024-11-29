@@ -13,61 +13,73 @@ export const AuthContext = createContext();
 
 function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  // SIGNUP: create user  Function
+  const [loading, setLoading] = useState(true); // Fixed: Correctly initialize state
+
+  // SIGNUP: Create user function
   const createUser = async (email, password) => {
+    setLoading(true);
     try {
       return await createUserWithEmailAndPassword(auth, email, password);
     } finally {
+      setLoading(false);
     }
   };
 
-  // SIGNIN: User SignIn Function
+  // SIGNIN: User SignIn function
   const signInUser = async (email, password) => {
+    setLoading(true);
     try {
       return await signInWithEmailAndPassword(auth, email, password);
     } finally {
+      setLoading(false);
     }
   };
-  //SIGNOUT: User SignOut Function
+
+  // SIGNOUT: User SignOut function
   const signOutUser = async () => {
+    setLoading(true);
     try {
       return await signOut(auth);
     } finally {
+      setLoading(false); // Ensure loading is set to false after sign-out
     }
   };
-  //GOOOGLE AUTH: User SignUp With google authProvider
+
+  // GOOGLE AUTH: User SignIn with Google AuthProvider
   const googleProvider = new GoogleAuthProvider();
-  const hundleGoogleAuth = async () => {
+  const handleGoogleAuth = async () => {
+    setLoading(true);
     try {
       return await signInWithPopup(auth, googleProvider);
     } finally {
+      setLoading(false);
     }
   };
-  // get the current user
+
+  // Get the current user
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        setUser(currentUser);
-        // console.log(currentUser);
-      } else {
-        setUser(null);
-        // console.log("Current user not found!");
-      }
+      setUser(currentUser);
+      setLoading(false); // Stop loading once auth state is determined
     });
     return () => unsubscribe();
   }, []);
 
   const authInfo = {
-    name: "jubayer",
     user,
+    loading,
     createUser,
     signInUser,
     signOutUser,
-    hundleGoogleAuth,
+    handleGoogleAuth,
   };
 
   return (
-    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={authInfo}>
+      {loading ? <div className="flex justify-center items-center h-screen">
+            <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-indigo-600"></div>
+          </div> : children}
+    </AuthContext.Provider>
   );
 }
 

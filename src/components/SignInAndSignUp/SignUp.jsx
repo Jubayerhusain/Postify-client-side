@@ -5,7 +5,7 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
-  const { createUser, hundleGoogleAuth } = useContext(AuthContext);
+  const { createUser, handleGoogleAuth } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const validateEmail = (email) => /\S+@\S+\.\S+/.test(email);
@@ -29,7 +29,7 @@ function SignUp() {
 
     createUser(email, password)
       .then((res) => {
-        alert("Successfully Signed Up!");
+        console.log("Successfully Signed Up!");
         navigate(`/profile`);
       })
       .catch((err) => {
@@ -48,7 +48,7 @@ function SignUp() {
   };
 
   const hundleGoogleSingUp = () => {
-    hundleGoogleAuth()
+    handleGoogleAuth()
       .then((res) => {
         console.log(res.user);
         navigate(`/profile`);

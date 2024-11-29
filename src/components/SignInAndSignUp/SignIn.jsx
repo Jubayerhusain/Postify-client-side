@@ -5,7 +5,7 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
-  const { signInUser, hundleGoogleAuth } = useContext(AuthContext);
+  const { signInUser, handleGoogleAuth } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSignIn = (event) => {
@@ -20,7 +20,7 @@ function SignIn() {
 
     signInUser(email, password)
       .then(() => {
-        alert("Successfully Signed In!");
+        console.log("Successfully Signed In!");
         navigate("/profile");
       })
       .catch((err) => {
@@ -37,7 +37,7 @@ function SignIn() {
   };
 
   const hundleGoogleSingIn = () => {
-    hundleGoogleAuth()
+    handleGoogleAuth()
       .then(() => {
         navigate(`/profile`);
       })
