@@ -7,6 +7,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 
 export const AuthContext = createContext();
@@ -64,7 +65,13 @@ function AuthProvider({ children }) {
     });
     return () => unsubscribe();
   }, []);
-
+  // // User Profile: user profile update
+  // const userProfile = async (userProfileData) => {
+  //   try {
+  //     return await updateProfile(auth.currentUser, userProfileData);
+  //   } finally {
+  //   }
+  // };
   const authInfo = {
     user,
     loading,
@@ -76,9 +83,13 @@ function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider value={authInfo}>
-      {loading ? <div className="flex justify-center items-center h-screen">
-            <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-indigo-600"></div>
-          </div> : children}
+      {loading ? (
+        <div className="flex justify-center items-center h-screen">
+          <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-indigo-600"></div>
+        </div>
+      ) : (
+        children
+      )}
     </AuthContext.Provider>
   );
 }
