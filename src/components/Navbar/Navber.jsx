@@ -127,8 +127,8 @@ function Navber() {
           </button>
         ) : (
           <Link
-            to="/signUp"
-            className="btn bg-blue-600 hover:bg-blue-500 text-white font-semibold border-blue-400"
+            to="/"
+            className="btn bg-blue-600 hover:bg-blue-500 text-white font-semibold border-none"
           >
             Sign Up
           </Link>
